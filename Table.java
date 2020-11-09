@@ -7,12 +7,11 @@ import java.util.Iterator;
 import java.util.Stack;
 
 public class Table implements Ilayout, Cloneable {
-	
 	private static final int maxDim = 7;
 	private List<Stack<Character>> stacks;
-	private int totalBlocks = 0;
-	private int correctBlocks = 0;
-
+	//private int totalBlocks = 0;
+	//private int correctBlocks = 0;
+	
 	public Table() {
 		stacks = new ArrayList<Stack<Character>>();
 	}
@@ -98,9 +97,7 @@ public class Table implements Ilayout, Cloneable {
 	
 	@Override
 	public double getH(Ilayout goal) {
-		totalBlocks = 0;
-		correctBlocks = 0;
-		
+
 		if (!(goal instanceof Table))
 			return 0;
 		Table tableGoal = (Table)goal;
@@ -114,6 +111,9 @@ public class Table implements Ilayout, Cloneable {
 				goalStackIterators.add(tableGoal.stacks.get(i).listIterator());
 		}
 		
+		Integer totalBlocks = 0;
+		Integer correctBlocks = 0;
+		
 		while(!thisStackIterators.isEmpty())
 		{
 			ListIterator<Character> thisTempIterator = thisStackIterators.get(0);
@@ -125,7 +125,7 @@ public class Table implements Ilayout, Cloneable {
 				if(thisTempCharacter.equals(goalTempCharacter))
 				{
 					correctBlocks++;
-					getChainedCorrectBlocks(thisTempIterator, goalTempIterator);
+					getChainedCorrectBlocks(thisTempIterator, goalTempIterator, totalBlocks, correctBlocks);
 				}
 				else
 					goalTempIterator.previous();
@@ -140,24 +140,20 @@ public class Table implements Ilayout, Cloneable {
 
 	}
 	
-	private void getChainedCorrectBlocks(ListIterator<Character> thisIterator, ListIterator<Character> goalIterator)
+	private void getChainedCorrectBlocks(ListIterator<Character> thisIterator, ListIterator<Character> goalIterator, Integer outTotalBlocks, Integer outCorrectBlocks)
 	{
 		boolean canRun = true;
 		while(canRun && thisIterator.hasNext() && goalIterator.hasNext())
 		{
 			Character thisTempChar = thisIterator.next();
 			Character goalTempChar = goalIterator.next();
-			totalBlocks++;
+			outTotalBlocks++;
 			if (thisTempChar.equals(goalTempChar))
-				correctBlocks++;
+				outCorrectBlocks++;
 			else
 				canRun = false;
 		}
-		while(thisIterator.hasNext()) 
-		{
-			thisIterator.next();
-			totalBlocks++;
-		}
+		while(thisIterator.hasNext()) {thisIterator.next();}
 		while(goalIterator.hasNext()) {goalIterator.next();}
 	}
 	

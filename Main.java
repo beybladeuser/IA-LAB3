@@ -5,8 +5,8 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			new Table(sc.nextLine()),
 			new Table(sc.nextLine())
@@ -15,7 +15,7 @@ public class Main {
 			System.out.println("no solution was found");
 		else
 		{
-			IDAStar.State LastState = it.next();
+			AStar.State LastState = it.next();
 			while(it.hasNext())
 			{
 				LastState = it.next();

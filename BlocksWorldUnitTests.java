@@ -165,17 +165,6 @@ class BlocksWorldUnitTests {
 	}
 	
 	@Test
-	void testGetH0()
-	{
-		Table start = new Table("FACE BDX");
-		Table objective = new Table("FBCDEAX");
-		
-		double expectedH = 6;
-		
-		assertEquals(expectedH, start.getH(objective));
-	}
-	
-	@Test
 	void testSolve0() {
 		Table start = new Table("AC B");
 		Table objective = new Table("A C B");
@@ -186,8 +175,8 @@ class BlocksWorldUnitTests {
 		expectedTables[0] = start.toString();
 		expectedTables[expectedTables.length-1] = (new Table("A B C")).toString();
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
@@ -196,7 +185,7 @@ class BlocksWorldUnitTests {
 		int j = 0;
 		while(it.hasNext())
 		{
-			IDAStar.State i = it.next();
+			AStar.State i = it.next();
 			assertEquals(expectedTables[j++] ,i.toString());
 			if (!it.hasNext())
 				assertEquals(expectedCost, i.getG());
@@ -215,8 +204,8 @@ class BlocksWorldUnitTests {
 		expectedTables[1] = (new Table("AB C")).toString();
 		expectedTables[expectedTables.length-1] = (new Table("A C B")).toString();
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
@@ -225,7 +214,7 @@ class BlocksWorldUnitTests {
 		int j = 0;
 		while(it.hasNext())
 		{
-			IDAStar.State i = it.next();
+			AStar.State i = it.next();
 			assertEquals(expectedTables[j++] ,i.toString());
 			if (!it.hasNext())
 				assertEquals(expectedCost, i.getG());
@@ -246,8 +235,8 @@ class BlocksWorldUnitTests {
 		expectedTables[3] = (new Table("C AB")).toString();
 		expectedTables[expectedTables.length-1] = objective.toString();
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
@@ -256,7 +245,7 @@ class BlocksWorldUnitTests {
 		int j = 0;
 		while(it.hasNext())
 		{
-			IDAStar.State i = it.next();
+			AStar.State i = it.next();
 			assertEquals(expectedTables[j++] ,i.toString());
 			if (!it.hasNext())
 				assertEquals(expectedCost, i.getG());
@@ -270,14 +259,14 @@ class BlocksWorldUnitTests {
 		
 		int expectedCost = 7;
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
 		);
 		assertNotNull(it);
-		IDAStar.State LastState = it.next();
+		AStar.State LastState = it.next();
 		while(it.hasNext())
 		{
 			LastState = it.next();
@@ -292,14 +281,14 @@ class BlocksWorldUnitTests {
 		
 		int expectedCost = 6;
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
 		);
 		assertNotNull(it);
-		IDAStar.State LastState = it.next();
+		AStar.State LastState = it.next();
 		while(it.hasNext())
 		{
 			LastState = it.next();
@@ -309,173 +298,19 @@ class BlocksWorldUnitTests {
 	
 	@Test
 	void testSolve5() {
-		Table start = new Table("DBCAEF");
-		Table objective = new Table("ABCDEF");
-		
-		int expectedCost = 9;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve6() {
-		Table start = new Table("FEDCBA");
-		Table objective = new Table("ABCDEF");
-		
-		int expectedCost = 6;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve7() {
-		Table start = new Table("CBA DE F");
-		Table objective = new Table("ABCDEF");
-		
-		int expectedCost = 7;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve8() {
-		Table start = new Table("FACE BD");
-		Table objective = new Table("ABCDEF");
-		
-		int expectedCost = 9;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve9() {
-		Table start = new Table("FACE BD");
-		Table objective = new Table("FBCDEA");
-		
-		int expectedCost = 9;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve10() {
-		Table start = new Table("FACE BDX");
-		Table objective = new Table("FBCDEAX");
-		
-		int expectedCost = 11;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve11() {
 		Table start = new Table("FACE BDG");
 		Table objective = new Table("GFBCDEA");
 		
 		int expectedCost = 11;
 		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
+		AStar s = new AStar();
+		Iterator<AStar.State> it = s.solve
 		(
 			start,
 			objective
 		);
 		assertNotNull(it);
-		IDAStar.State LastState = it.next();
-		while(it.hasNext())
-		{
-			LastState = it.next();
-		}
-		assertEquals(expectedCost, LastState.getG());
-	}
-	
-	@Test
-	void testSolve12() {
-		Table start = new Table("GF EDC B A");
-		Table objective = new Table("ABCDEFG");
-		
-		int expectedCost = 6;
-		
-		IDAStar s = new IDAStar();
-		Iterator<IDAStar.State> it = s.solve
-		(
-			start,
-			objective
-		);
-		assertNotNull(it);
-		IDAStar.State LastState = it.next();
+		AStar.State LastState = it.next();
 		while(it.hasNext())
 		{
 			LastState = it.next();
