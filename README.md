@@ -7,7 +7,7 @@ The IDA* Branch has the IDA* implementation of this proplem. To use this algorit
 
 Both A* and IDA* share the Table class which implements from Ilayout and represents the table and the blocks as described in the Blocks world problem.
 The inputs are 2 strings in the following format: a chain of letters like ABC is a stack, stacks are chains of letters separated by a space like: ABC GE, where ABC is a stack and C is at the top and GE is another stack in the same table. The first string is the inicial state and the 2nd is the goal/final state.
-2 Table objects are considered equal if the order of the blocks in a stack are equal, and the order of the stacks dont matter, i.e. ABC ED == ED ABC
+2 Table objects are considered equal if the order of the blocks in a stack are equal, and the order of the stacks dont matter, i.e. ABC ED == ED ABC but ACB ED != ABC ED
 
 
 THE BLOCK LIMIT OF THE Table IS SET TO 7 BUT CAN BE CHANGED BY GOING TO THE Table CLASS AN CHANGING THE VALUE maxDim TO THE DESIRED VALUE.
